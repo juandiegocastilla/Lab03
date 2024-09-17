@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 public class Graficoimag extends javax.swing.JFrame {
 
@@ -23,10 +24,10 @@ public class Graficoimag extends javax.swing.JFrame {
 
         for (String nombre : nombresImagenes) {
             try {
-                BufferedImage imagen = ImageIO.read(new File(rutaCarpeta + nombre));
+                BufferedImage imagen = ImageIO.read(new File(ruta + nombre));
                 ImageIcon icon = new ImageIcon(imagen);
-                jLabel1 label = new jLabel1(icon);
-                add(label);
+                jLabel1.setIcon(icon);
+                
             } catch (IOException e) {
                 System.err.println("Error al leer la imagen: " + nombre);
                 e.printStackTrace();
