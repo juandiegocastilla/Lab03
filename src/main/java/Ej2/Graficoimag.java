@@ -11,6 +11,9 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 
 public class Graficoimag extends javax.swing.JFrame {
@@ -20,15 +23,15 @@ public class Graficoimag extends javax.swing.JFrame {
      */
     
     public Graficoimag() {
-        initComponents();
+       
     }
-    private String[] nombresImagenes = {"imagen1.jpeg", "imagen2.jpg", "imagen3.png"};
+    private final String[] nombresImagenes = {"man1.png", "man2.png", "man3.png"};
     private ImageIcon[] imagenes;
     private int i = 0;
     private Timer timer;
   public void imagenes() throws IOException{
       
-  String ruta = "C:\\Users\\juand\\Desktop\\Raging Blast 2 Modding Starter Pack\\Nueva carpeta\\Lab03-main\\images";
+  String ruta = "src/resources/IMAGES/";
          imagenes = new ImageIcon[nombresImagenes.length];
 
        
@@ -45,17 +48,27 @@ public class Graficoimag extends javax.swing.JFrame {
                 cambiar();
             }
         };
-   timer.scheduleAtFixedRate(timerTask, 0, Slider.getValue() * 1000);
+        long valor=Intervalo();
+   timer.scheduleAtFixedRate(timerTask, 0, valor );
     }
-           
+        private void iniciarTimer() {
+        if (Slider.getValue() <= 0) {
+            JOptionPane.showMessageDialog(this, "La velocidad debe ser mayor que 0", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            
+        }}    
     public void cambiar(){
+        if(imagenes.length>0){
         jLabel1.setIcon(imagenes[i]);
        jLabel1.setIcon(imagenes[i]);
             i = (i + 1) % nombresImagenes.length;  
-  }
+  }}
 
                
-   
+   public long Intervalo(){
+ int value=Slider.getValue();
+ double variaciones=0.5 + (value / 100.0) * 4.5;
+ return (long) variaciones*1000;
+   }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -72,8 +85,6 @@ public class Graficoimag extends javax.swing.JFrame {
         Slider.setPaintTicks(true);
         Slider.setSnapToTicks(true);
         Slider.setValue(0);
-
-        jLabel1.setText("label");
 
         jLabel2.setText("Velocidad");
 
@@ -107,7 +118,12 @@ public class Graficoimag extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
+    private void Slider(javax.swing.event.ChangeEvent evt) {
+        if (timer != null) {
+            timer.cancel();
+        }
+        timer();
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
