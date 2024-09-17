@@ -9,32 +9,52 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 public class Graficoimag extends javax.swing.JFrame {
 
     /**
      * Creates new form Graficoimag
      */
+    
     public Graficoimag() {
         initComponents();
     }
-  public void imagenes(){
-  String ruta= "images/"; 
-  String[] nombresImagenes = {"imagen1.png", "imagen2.jpg", "imagen3.png"};
+    private String[] nombresImagenes = {"imagen1.jpeg", "imagen2.jpg", "imagen3.png"};
+    private ImageIcon[] imagenes;
+    private int i = 0;
+    private Timer timer;
+  public void imagenes() throws IOException{
+      
+  String ruta = "C:\\Users\\juand\\Desktop\\Raging Blast 2 Modding Starter Pack\\Nueva carpeta\\Lab03-main\\images";
+         imagenes = new ImageIcon[nombresImagenes.length];
 
-        for (String nombre : nombresImagenes) {
-            try {
-                BufferedImage imagen = ImageIO.read(new File(ruta + nombre));
-                ImageIcon icon = new ImageIcon(imagen);
-                jLabel1.setIcon(icon);
-                
-            } catch (IOException e) {
-                System.err.println("Error al leer la imagen: " + nombre);
-                e.printStackTrace();
+       
+           for (int i = 0; i < nombresImagenes.length; i++) {
+           
+                BufferedImage imagen = ImageIO.read(new File(ruta + nombresImagenes[i]));
+                imagenes[i] = new ImageIcon(imagen);
+        }};
+        
+ public void timer(){
+  timer = new Timer();
+        TimerTask timerTask = new TimerTask() {
+            public void run() {
+                cambiar();
             }
-        }
+        };
+   timer.scheduleAtFixedRate(timerTask, 0, Slider.getValue() * 1000);
     }
-  
+           
+    public void cambiar(){
+        jLabel1.setIcon(imagenes[i]);
+       jLabel1.setIcon(imagenes[i]);
+            i = (i + 1) % nombresImagenes.length;  
+  }
+
+               
    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
