@@ -6,7 +6,7 @@ package Main;
 
 import Ej1.Cronometro;
 import Ej2.Animacion;
-import Ej2.Graficoimag;
+
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -58,8 +58,7 @@ public class Main {
                   
                     switch (index) {
                         case 0:
-                            Cronometro.main(new String[]{})
-                           ;  break;
+                            
                         case 1:
                             botones[index].setEnabled(!botones[index].isEnabled());
                            Animacion.main(new String[]{}); break;
