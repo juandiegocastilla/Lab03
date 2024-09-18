@@ -6,11 +6,15 @@ package Ej2;
 
 import java.awt.BorderLayout;
 import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
+import javax.swing.SwingUtilities;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  *
@@ -47,7 +51,7 @@ public class Animacion {
         label.setVerticalAlignment(JLabel.CENTER);
         frame.add(label, BorderLayout.CENTER);
         
-        slider = new JSlider(1,10,2);
+        slider = new JSlider(1,10,1);
         slider.setMajorTickSpacing(1);
         slider.setMinorTickSpacing(1);
         slider.setPaintTicks(true);
@@ -55,10 +59,47 @@ public class Animacion {
         slider.setToolTipText("Velocidad");
         
         JPanel panel= new JPanel();
+        panel.add(new JLabel("Velocidad:"));
+        panel.add(slider);
+        frame.add(panel, BorderLayout.SOUTH);
+        
+         iniciarTimer();
+         
+       
+        
+       slider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                actualizarRetraso();
+            }
+        });
+               frame.setVisible(true);
 }
 private static void cambiarImagen() {
         if (imagenes.length > 0) {
             label.setIcon(imagenes[Indice]);
             Indice = (Indice + 1) % imagenes.length;
 
-}}}
+}}
+private static int delay(){
+ int sliderValue = slider.getValue();
+        return Math.max(1, 1000 / sliderValue);
+}
+
+ private static void iniciarTimer() {
+        timer = new Timer(); 
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                cambiarImagen();
+            }
+        }, 0, delay()); 
+    }
+
+    private static void actualizarRetraso() {
+        if (timer != null) {
+            timer.cancel(); 
+        }
+        iniciarTimer(); 
+    }
+}
