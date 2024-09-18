@@ -5,6 +5,7 @@
 package Main;
 
 import Ej1.Cronometro;
+import Ej2.Animacion;
 import Ej2.Graficoimag;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -61,7 +62,7 @@ public class Main {
                            ;  break;
                         case 1:
                             botones[index].setEnabled(!botones[index].isEnabled());
-                            new Graficoimag().setVisible(true); break;
+                           Animacion.main(new String[]{}); break;
                         
                     }
                     // *** FINAL AJUSTES ***
