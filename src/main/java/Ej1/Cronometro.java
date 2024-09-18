@@ -60,5 +60,23 @@ public class Cronometro {
         };
         // un contador que lleva cada segundo pasado, el 1000 sirve para saber que es un segundo, ya que el timer no esta en segundos
         timer.scheduleAtFixedRate(tarea, 0, 1000);
+    } private static void activarAlarma() {
+        alarmaActiva = true;
+        System.out.println("Alarma ");
+
+        TimerTask alarmaTask = new TimerTask() {
+            //como se declararon variables estaticas en la clase principal (lab32) se usa el Override para sobreescribirlo, o sea darle un valor diferente 
+            @Override
+            public void run() {
+                System.out.println("ALERTA DE ALARMA  ");
+            }
+        };
+        // Iniciar la alarma cada 10 segundos precisamente con una de las librerias de TimerTask
+        timer.scheduleAtFixedRate(alarmaTask, 0, 10000);
+    }
+         private static void pararCronometro() {
+        timer.cancel(); // Detener el timer 
+        System.out.print("se a detenido el tiempo ");
+        
     }
 }

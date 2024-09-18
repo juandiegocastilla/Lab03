@@ -30,7 +30,7 @@ public class Main {
         String titulo = "Lab02: Metodo de ordenamiento";
 
        
-        String opciones[] = {"Ordenamiento Merge", "Ordenamiento Interseccion"};
+        String opciones[] = {"Cronometro", "Animacion"};
 
         final int numop = opciones.length;
 
@@ -58,9 +58,9 @@ public class Main {
                   
                     switch (index) {
                         case 0:
-                            
+                            Cronometro.main(new String[]{}); break;
                         case 1:
-                            botones[index].setEnabled(!botones[index].isEnabled());
+                            
                            Animacion.main(new String[]{}); break;
                         
                     }
