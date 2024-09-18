@@ -6,6 +6,7 @@ package Ej1;
 
 import java.util.Scanner;
 import java.util.Timer;
+import java.util.TimerTask;
 
 
 /**
@@ -35,5 +36,29 @@ public class Cronometro {
             }
         }
         scanner.close();
+    }
+    private static void iniciarCronometro(int tiempoAlarma) {
+        TimerTask tarea = new TimerTask() {
+            @Override
+            public void run() {
+                //sumatoria para cada seguno, minuto y hora cuando se resetea en 60 
+                segundos++;
+                if (segundos == 60) {
+                    segundos = 0;
+                    minutos++;
+                }
+                if (minutos == 60) {
+                    minutos = 0;
+                    horas++;
+                }
+                System.out.print("Hora actual:  "+horas+":"+minutos+":"+segundos+"\n");
+                
+                if (!alarmaActiva && minutos >= tiempoAlarma) {
+                    activarAlarma();
+                }
+            }
+        };
+        // un contador que lleva cada segundo pasado, el 1000 sirve para saber que es un segundo, ya que el timer no esta en segundos
+        timer.scheduleAtFixedRate(tarea, 0, 1000);
     }
 }
